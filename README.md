@@ -27,3 +27,15 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 test commit2
+
+node -v
+npm -v
+npm install -g @angular/cli
+
+cd C:\workspace\corsoAngular
+ng new miaapp
+ng serve --o
+
+ng g component menu
+ng g class Model/Sede
+ng g c listaSedi

@@ -9,6 +9,7 @@ import { Datasource } from './Model/datasource';
 import { RepositoryAuto } from './Model/repository-auto';
 import { ParcoAutoComponent } from './parco-auto/parco-auto.component';
 import { HomeComponent } from './home/home.component';
+import { SequenzaComponent } from './sequenza/sequenza.component';
 
 
 
@@ -18,7 +19,8 @@ import { HomeComponent } from './home/home.component';
     MenuComponent,
     ListaSediComponent,
     ParcoAutoComponent,
-    HomeComponent
+    HomeComponent,
+    SequenzaComponent
   ],
   imports: [
     BrowserModule,

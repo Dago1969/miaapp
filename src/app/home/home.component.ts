@@ -12,4 +12,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+    getStyle(){
+      let str:string
+      str="bg-primary text-center text-withe p-2"
+      return str
+    }
 }

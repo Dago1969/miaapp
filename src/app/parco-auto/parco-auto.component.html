@@ -1,16 +1,23 @@
-
-
-<table class="w3-table-all w3-large">
-    <tr>
+<table class="table table-sm table-bordered">
+    <tr class="bg-warning p-4">
         <td></td>
         <td>Targa</td>
         <td>Modello</td>
         <td>Marca</td>
+        <td>Cilindrata</td>
+        <td>Prezzo</td>
     </tr>
-    <tr *ngFor="let item of arrAuto">
+    <tr *ngFor="let item of arrAuto" class="bg-info p-2">
         <td>{{item.id}}</td>
         <td>{{item.targa}}</td>
         <td>{{item.modello}}</td>
         <td>{{item.marca}}</td>
+        <td>{{item.cilindrata}}</td>
+        <td *ngIf="item.prezzo < 40000">{{item.prezzo}}</td>
+        <td *ngIf="item.prezzo >= 40000">Da trattare</td>
     </tr>
 </table>    
+
+<div >
+    <input type="text" [value]="val">
+</div>

@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'listaSedi', component: ListaSediComponent},
   {path: 'parcoAuto', component: ParcoAutoComponent},
-  //{path: 'prenotazione', component: ListaSediComponent}
+  {path: 'noleggio', component: ParcoAutoComponent}
   
 ];
 

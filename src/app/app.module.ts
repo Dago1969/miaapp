@@ -8,6 +8,7 @@ import { ListaSediComponent } from './lista-sedi/lista-sedi.component';
 import { Datasource } from './Model/datasource';
 import { RepositoryAuto } from './Model/repository-auto';
 import { ParcoAutoComponent } from './parco-auto/parco-auto.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -16,7 +17,8 @@ import { ParcoAutoComponent } from './parco-auto/parco-auto.component';
     AppComponent,
     MenuComponent,
     ListaSediComponent,
-    ParcoAutoComponent
+    ParcoAutoComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { Auto } from './Model/auto';
-import { RepositoryAuto } from './Model/repository-auto';
+import { Auto } from '../Model/auto';
+import { RepositoryAuto } from '../Model/repository-auto';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './parco-auto.component.html',
+  styleUrls: ['./parco-auto.component.css']
 })
-export class AppComponent {
+export class ParcoAutoComponent {
   title = 'Io sono io e voi .... ';
   arrAuto:Auto[]=[]
   constructor(

@@ -5,18 +5,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { ListaSediComponent } from './lista-sedi/lista-sedi.component';
+import { Datasource } from './Model/datasource';
+import { RepositoryAuto } from './Model/repository-auto';
+import { ParcoAutoComponent } from './parco-auto/parco-auto.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    ListaSediComponent
+    ListaSediComponent,
+    ParcoAutoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [Datasource, RepositoryAuto],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

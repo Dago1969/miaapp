@@ -1,10 +1,13 @@
-<table class="table table-sm table-bordered">
-    <tr>
+<div [ngClass]="getClasseStile('titoloSuccess')">
+    BENVENUTO nell'elenco delle Sedi
+</div>
+<table [ngClass]="getClasseStile('tabella')">
+    <tr [ngClass]="getClasseStile('testataTabella')">
         <td>ID</td>
         <td>Città</td>
         <td>Indirizzo</td>
     </tr>
-    <tr *ngFor="let item of lista">
+    <tr *ngFor="let item of lista" [ngClass]="getClasseStile('elementoTabellaPrimary')">
         <td>{{item.id}}</td>
         <td>{{item.citta}}</td>
         <td>{{item.indirizzo}}</td>

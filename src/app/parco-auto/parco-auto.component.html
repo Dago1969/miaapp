@@ -1,5 +1,8 @@
-<table class="table table-sm table-bordered">
-    <tr class="bg-warning p-4">
+<div [ngClass]="getClasseStile('titoloSuccess')">
+    BENVENUTO nel parco auto
+</div>
+<table [ngClass]="getClasseStile('tabella')">
+    <tr [ngClass]="getClasseStile('testataTabella')">
         <td></td>
         <td>Targa</td>
         <td>Modello</td>
@@ -7,7 +10,7 @@
         <td>Cilindrata</td>
         <td>Prezzo</td>
     </tr>
-    <tr *ngFor="let item of arrAuto" class="bg-info p-2">
+    <tr *ngFor="let item of arrAuto" [ngClass]="getClasseStile('elementoTabella')">
         <td>{{item.id}}</td>
         <td>{{item.targa}}</td>
         <td>{{item.modello}}</td>

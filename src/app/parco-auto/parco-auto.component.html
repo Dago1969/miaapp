@@ -3,15 +3,23 @@
 </div>
 <table [ngClass]="getClasseStile('tabella')">
     <tr [ngClass]="getClasseStile('testataTabella')">
-        <td></td>
+        <td>Progressivo Riga</td>
+        <td>Progressivo Riga</td>
+        <td>ID</td>
         <td>Targa</td>
         <td>Modello</td>
         <td>Marca</td>
         <td>Cilindrata</td>
         <td>Prezzo</td>
     </tr>
-    <tr *ngFor="let item of arrAuto" [ngClass]="getClasseStile('elementoTabella')">
-        <td>{{item.id}}</td>
+    <!--tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [ngClass]="getClasseStileAlternato2('rigaTabella', disp)"-->
+    <!-- tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="disp" [class.bg-info]="!disp" -->
+    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="coincide(item.id)" (mouseover) = "assegna(item.id)">
+        <td >{{disp}}</td>
+        <td>{{i+1}}</td>
+        <!--td (mouseover)="str=getTot2(item.id)+''" >{{item.id}}</td-->
+        <!--td (mouseover)="getTot3(item.marca)" >{{item.id}}</td-->
+        <td (mouseover)="getTot2A(i)+''">{{item.id}}</td>
         <td>{{item.targa}}</td>
         <td>{{item.modello}}</td>
         <td>{{item.marca}}</td>
@@ -20,7 +28,9 @@
         <td *ngIf="item.prezzo >= 40000">Da trattare</td>
     </tr>
 </table>    
+Totale Importi : {{importo}}
 
+Altro : {{str}}
 <div >
     <input type="text" [value]="val">
 </div>

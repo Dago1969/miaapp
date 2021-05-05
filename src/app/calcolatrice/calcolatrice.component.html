@@ -1,0 +1,26 @@
+<p>calcolatrice works!</p>
+
+<div class="col-2 m-5">
+    <table class="table table-sm table-bordered">
+        <tr class="bg-warning p-4">
+            <td>
+                <input #op1 class="form-control">
+                <input #op2 class="form-control">
+                <input #ris class="form-control">
+                <button (click) = "ris.value = somma(op1.value, op2.value)"> + </button>
+                <button (click) = "ris.value = sottrai(op1.value, op2.value)"> - </button>
+                <button (click) = "ris.value = moltiplica(op1.value, op2.value)"> * </button>
+                <button (click) = "ris.value = dividi(op1.value, op2.value)"> / </button>
+            </td>
+        </tr>
+    </table>
+</div>
+<hr>
+<!--
+    <input class="form-control" (input) = "stringa=getEvent($event)" [value]="stringa || ''"/>
+    <input class="form-control" (input) = "stringa=getEvent($event)" [value]="stringa || ''"/>
+ -->
+
+ TWO WAY DATA BINDING: BANANA IN A BOX
+ <input class="form-control" [(ngModel)]= "stringa" />
+ <input class="form-control" [(ngModel)]= "stringa" />

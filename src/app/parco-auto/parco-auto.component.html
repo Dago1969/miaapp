@@ -14,7 +14,7 @@
     </tr>
     <!--tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [ngClass]="getClasseStileAlternato2('rigaTabella', disp)"-->
     <!-- tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="disp" [class.bg-info]="!disp" -->
-    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="coincide(item.id)" (mouseover) = "assegna(item.id);getTot3(item.marca)">
+    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" (mouseover) = "assegna(item.id);getTot3(item.marca)" [class.bg-primary]="marcaRicercata(item.marca)" [class.bg-success]="coincide(item.id)"  [class.bg-warning] = "includeMarcaParziale(item.marca)">
         <td >{{disp}}</td>
         <td>{{i+1}}</td>
         <!--td (mouseover)="str=getTot2(item.id)+''" >{{item.id}}</td-->
@@ -24,18 +24,52 @@
         <td>{{item.modello}}</td>
         <td>{{item.marca}}</td>
         <td>{{item.cilindrata}}</td>
-        <td *ngIf="item.prezzo < 40000">{{item.prezzo}}</td>
-        <td *ngIf="item.prezzo >= 40000">Da trattare</td>
+        <td *ngIf="item.prezzo < 50000">{{item.prezzo}}</td>
+        <td *ngIf="item.prezzo >= 50000">Da trattare</td>
     </tr>
 </table>    
 Totale Importi : {{importo}}
 <br/>
 Totale auto marca {{marca}} : {{numeroAuto}}
-<br/>
-Altro : {{str}}
+
 
 <br/>
 Totale records: {{val}}
 <div >
     <input type="text" [value]="val">
 </div>
+<br/>
+
+<div class="form-control">
+    <label>Marca da ricercare</label>
+    <!-- input class="form-control" (input)="aggiornaSelMarca($event)" -->
+    <input class="form-control" (keyup)="onkeyup($event)" >
+</div>
+<hr>
+<br/>
+COPIA : {{str}}
+<hr>
+
+
+<div class="form-group">
+    <label>Marca</label>
+    <input class="form-control" [(ngModel)]= "nuovaAuto.marca">
+</div>
+<div class="form-group">
+    <label>Modello</label>
+    <input class="form-control" [(ngModel)]= "nuovaAuto.modello">
+</div>
+<div class="form-group">
+    <label>Cilindrata</label>
+    <input class="form-control" [(ngModel)]= "nuovaAuto.cilindrata">
+</div>
+<div class="form-group">
+    <label>Prezzo</label>
+    <input class="form-control" [(ngModel)]= "nuovaAuto.prezzo">
+</div>
+<div class="form-group">
+    <label>Targa</label>
+    <input class="form-control" [(ngModel)]= "nuovaAuto.targa">
+</div>
+
+<button class="btn btn-primary" (click)=addAuto()>Crea Auto</button>

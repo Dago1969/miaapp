@@ -13,6 +13,8 @@ import { SequenzaComponent } from './sequenza/sequenza.component';
 import { Stile } from './Model/stile';
 import { RepositoryStile } from './Model/repository-stile';
 import { RepositorySede } from './Model/repository-sede';
+import { CalcolatriceComponent } from './calcolatrice/calcolatrice.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -23,11 +25,13 @@ import { RepositorySede } from './Model/repository-sede';
     ListaSediComponent,
     ParcoAutoComponent,
     HomeComponent,
-    SequenzaComponent
+    SequenzaComponent,
+    CalcolatriceComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [Datasource, RepositoryAuto, RepositoryStile, RepositorySede],
   bootstrap: [AppComponent]

@@ -12,4 +12,8 @@ export class RepositoryAuto {
     getLista():Auto[]{
         return this.datasource.getLista()
     }
+
+    addAuto(auto:Auto){
+        this.datasource.addAuto(auto);
+    }
 }

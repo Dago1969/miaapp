@@ -9,6 +9,7 @@ import { RepositoryStile } from '../Model/repository-stile';
   styleUrls: ['./parco-auto.component.css']
 })
 export class ParcoAutoComponent implements OnInit {
+  nuovaAuto:Auto= new Auto(0,"","","",0,0);
   title = 'Io sono io e voi .... ';
   arrAuto:Auto[]=[]
   val:string="pippo";
@@ -16,7 +17,8 @@ export class ParcoAutoComponent implements OnInit {
   importo!:number;
   idMouse!:number;
   numeroAuto!:number;
-  marca:string="";
+  marca!:string;
+  selMarca!:string;
   constructor(
     public repositoryStile:RepositoryStile,
     public repositoryAuto:RepositoryAuto
@@ -95,7 +97,36 @@ export class ParcoAutoComponent implements OnInit {
         return true
       else  
         return false
+//      return this.idMouse == id;
+  }
+
+  aggiornaSelMarca(event:any){
+    this.selMarca = event.target.value;
   }
   
+  marcaRicercata(marca:string){
+    return marca==this.selMarca;
+  }
 
+  onkeyup(event:any){
+    this.str = event.target.value
+  }
+
+  coincideMarcaParziale(marca:string){
+    if(marca.substr(0, this.str.length) == this.str)
+      return true
+    else
+    return false
+
+  }
+
+  includeMarcaParziale(marca:string){
+    return marca.toUpperCase().includes(this.str.toUpperCase())
+  }
+
+  addAuto(){
+    this.repositoryAuto.addAuto(this.nuovaAuto);
+    this.val= this.repositoryAuto.getLista().length+''
+    this.nuovaAuto = new Auto(0,"","","",0,0);;
+  }
 }

@@ -17,6 +17,7 @@ export class Datasource {
             new Auto(4, "444","SLK", "MERCEDES", 4000, 35000),
             new Auto(5, "555","X5", "BMW", 2000, 3900),
             new Auto(6, "666","X2", "BMW", 2000, 3800),
+            new Auto(7, "777","Q6", "AUDI", 2000, 3800),
         )
         this.arrStili.push(
             new Stile("titolo", "bg-primary text-center text-withe p-2"),
@@ -47,6 +48,21 @@ export class Datasource {
 
     getListaSedi():Sede[]{
         return this.arrSedi;
+    }
+
+    addAuto(auto:Auto){
+        auto.id = this.getIdNewAuto();
+        this.arr.push(auto);
+    }
+
+    getIdNewAuto():number{
+        let id:number = 0;
+        const max = this.arr.reduce(function(prev, current) {
+            return (prev.id > current.id) ? prev : current
+        }) //returns object
+        return max.id+1;
+
+        
     }
 
 }

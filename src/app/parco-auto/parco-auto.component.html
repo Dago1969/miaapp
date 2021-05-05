@@ -14,12 +14,12 @@
     </tr>
     <!--tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [ngClass]="getClasseStileAlternato2('rigaTabella', disp)"-->
     <!-- tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="disp" [class.bg-info]="!disp" -->
-    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="coincide(item.id)" (mouseover) = "assegna(item.id)">
+    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="coincide(item.id)" (mouseover) = "assegna(item.id);getTot3(item.marca)+''">
         <td >{{disp}}</td>
         <td>{{i+1}}</td>
         <!--td (mouseover)="str=getTot2(item.id)+''" >{{item.id}}</td-->
         <!--td (mouseover)="getTot3(item.marca)" >{{item.id}}</td-->
-        <td (mouseover)="getTot2A(i)+''">{{item.id}}</td>
+        <td >{{item.id}}</td>
         <td>{{item.targa}}</td>
         <td>{{item.modello}}</td>
         <td>{{item.marca}}</td>
@@ -29,8 +29,13 @@
     </tr>
 </table>    
 Totale Importi : {{importo}}
-
+<br/>
+Totale auto marca {{marca}} : {{numeroAuto}}
+<br/>
 Altro : {{str}}
+
+<br/>
+Totale records: {{val}}
 <div >
     <input type="text" [value]="val">
 </div>

@@ -14,7 +14,9 @@ export class Datasource {
             new Auto(1, "1111", "159", "Alfa Romeo" ,1200 ,30000),
             new Auto(2, "244","X4", "BMW", 2000, 25000),
             new Auto(3,"3333", "GIULIA", "Alfa Romeo", 3500, 10000),
-            new Auto(4, "444","SLK", "MERCEDES", 4000, 35000)
+            new Auto(4, "444","SLK", "MERCEDES", 4000, 35000),
+            new Auto(5, "555","X5", "BMW", 2000, 3900),
+            new Auto(6, "666","X2", "BMW", 2000, 3800),
         )
         this.arrStili.push(
             new Stile("titolo", "bg-primary text-center text-withe p-2"),

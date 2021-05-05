@@ -14,14 +14,16 @@ export class ParcoAutoComponent implements OnInit {
   val:string="pippo";
   str:string="0";
   importo!:number;
-  idMouse!:number
+  idMouse!:number;
+  numeroAuto!:number;
+  marca:string="";
   constructor(
     public repositoryStile:RepositoryStile,
     public repositoryAuto:RepositoryAuto
     ){
       this.val= repositoryAuto.getLista().length+''
-    this.arrAuto= repositoryAuto.getLista()
-    this.arrAuto.sort((a1, a2) => (a1.marca < a2.marca ? -1 : 1))
+      this.arrAuto= repositoryAuto.getLista()
+      this.arrAuto.sort((a1, a2) => (a1.marca < a2.marca ? -1 : 1))
   }
 
   ngOnInit(): void{}
@@ -70,10 +72,15 @@ export class ParcoAutoComponent implements OnInit {
 
   getTot3(marca:string){
     let tot= 0;
+    let qta= 0;
+    this.marca = marca;
     for(let i=0; i<this.repositoryAuto.getLista().length;i++ )
-      if(this.repositoryAuto.getLista()[i].marca == marca)
+      if(this.repositoryAuto.getLista()[i].marca == marca){
         tot += this.repositoryAuto.getLista()[i].prezzo
+        qta ++;
+      }
     this.importo = tot;
+    this.numeroAuto = qta;
    return tot
   }
 

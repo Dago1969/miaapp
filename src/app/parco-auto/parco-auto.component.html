@@ -14,7 +14,7 @@
     </tr>
     <!--tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [ngClass]="getClasseStileAlternato2('rigaTabella', disp)"-->
     <!-- tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="disp" [class.bg-info]="!disp" -->
-    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="coincide(item.id)" (mouseover) = "assegna(item.id);getTot3(item.marca)+''">
+    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="coincide(item.id)" (mouseover) = "assegna(item.id);getTot3(item.marca)">
         <td >{{disp}}</td>
         <td>{{i+1}}</td>
         <!--td (mouseover)="str=getTot2(item.id)+''" >{{item.id}}</td-->

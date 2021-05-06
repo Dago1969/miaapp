@@ -16,9 +16,14 @@ export class ParcoAutoComponent implements OnInit {
   str:string="0";
   importo!:number;
   idMouse!:number;
+  idMouseNascondi!:number;
+  idScopri!:number;
   numeroAuto!:number;
   marca!:string;
-  selMarca!:string;
+  selMarca!:string
+  voceTratt:number[]=[]
+  vediTable:boolean=true
+  totaleImporti:number=0
   constructor(
     public repositoryStile:RepositoryStile,
     public repositoryAuto:RepositoryAuto
@@ -128,5 +133,39 @@ export class ParcoAutoComponent implements OnInit {
     this.repositoryAuto.addAuto(this.nuovaAuto);
     this.val= this.repositoryAuto.getLista().length+''
     this.nuovaAuto = new Auto(0,"","","",0,0);;
+  }
+
+  scegliMostraPrezzo(id:number){
+    this.idMouseNascondi = id
+  }
+
+  dammiPrezzo(id:number):string{
+    let autosel:Auto|undefined=this.arrAuto.find( (auto) => (auto.id==id))
+    if(id == this.idMouseNascondi || (autosel !=undefined  && autosel.prezzo < 30000))
+      return autosel?.prezzo+''
+    else
+      return 'X'
+  }
+
+  dimmiciao(id:number):string{
+    return 'ciaoooo'+id
+  }
+
+  impostaIdScopri(id:number){
+    this.idScopri = id
+  }
+
+  impostaVediTable(){
+    this.vediTable=!this.vediTable
+  }
+
+  mostraTotale(x:number){
+    x==0?this.totaleImporti=this.calcolaTotaleImporti():this.totaleImporti=0
+  }
+
+  calcolaTotaleImporti():number{
+    let somma :number =0;
+    this.arrAuto.forEach(auto => {somma = somma+auto.prezzo});
+    return somma
   }
 }

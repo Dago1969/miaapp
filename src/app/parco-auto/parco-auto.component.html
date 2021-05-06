@@ -1,20 +1,16 @@
 <div [ngClass]="getClasseStile('titoloSuccess')">
     BENVENUTO nel parco auto
 </div>
-<table [ngClass]="getClasseStile('tabella')">
+<button (click) ="impostaVediTable()">Vedi Tabella S/N</button>
+<hr>
+<table [ngClass]="getClasseStile('tabella')" *ngIf="vediTable">
     <tr [ngClass]="getClasseStile('testataTabella')">
-        <td>Progressivo Riga</td>
-        <td>Progressivo Riga</td>
-        <td>ID</td>
-        <td>Targa</td>
-        <td>Modello</td>
-        <td>Marca</td>
         <td>Cilindrata</td>
         <td>Prezzo</td>
     </tr>
     <!--tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [ngClass]="getClasseStileAlternato2('rigaTabella', disp)"-->
     <!-- tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="disp" [class.bg-info]="!disp" -->
-    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" (mouseover) = "assegna(item.id);getTot3(item.marca)" [class.bg-primary]="marcaRicercata(item.marca)" [class.bg-success]="coincide(item.id)"  [class.bg-warning] = "includeMarcaParziale(item.marca)">
+    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" (mouseover) = "assegna(item.id);getTot3(item.marca)" [class.bg-primary]="coincideMarcaParziale(item.marca)" [class.bg-success]="coincide(item.id)"  [class.bg-warning] = "includeMarcaParziale(item.marca)">
         <td >{{disp}}</td>
         <td>{{i+1}}</td>
         <!--td (mouseover)="str=getTot2(item.id)+''" >{{item.id}}</td-->
@@ -24,8 +20,16 @@
         <td>{{item.modello}}</td>
         <td>{{item.marca}}</td>
         <td>{{item.cilindrata}}</td>
-        <td *ngIf="item.prezzo < 50000">{{item.prezzo}}</td>
-        <td *ngIf="item.prezzo >= 50000">Da trattare</td>
+        <td *ngIf="dammiPrezzo(item.id) =='X' " (mouseover) = "scegliMostraPrezzo(item.id);" (mouseout) = "scegliMostraPrezzo(0);" >Da trattare</td>
+        <td *ngIf="dammiPrezzo(item.id) !='X' "(mouseover) = "scegliMostraPrezzo(item.id);" (mouseout) = "scegliMostraPrezzo(0);" >{{dammiPrezzo(item.id) | currency:"EUR"}}</td>
+        <!--td *ngIf="item.prezzo < 50000" (mouseover)="impostaIdScopri(item.id)" (mouseout)="impostaIdScopri(0)">{{item.prezzo | currency:"EUR"}}</td>
+        <td *ngIf="item.prezzo >= 50000 && idScopri!=item.id" (mouseover)="impostaIdScopri(item.id)"  (mouseout)="impostaIdScopri(0)">Da trattare</td>
+        <td *ngIf="item.prezzo >= 50000 && idScopri==item.id" (mouseover)="impostaIdScopri(item.id)"  (mouseout)="impostaIdScopri(0)">{{item.prezzo | currency:"EUR"}}</td-->
+    </tr>
+    <tr [ngClass]="getClasseStile('testataTabella')">
+        <td colspan="7">Totale</td>
+        <td *ngIf="totaleImporti != 0" (mouseover)="mostraTotale(0)" (mouseout) = "mostraTotale(1);">{{totaleImporti | currency:"EUR"}}</td>
+        <td *ngIf="totaleImporti == 0" (mouseover)="mostraTotale(0)" (mouseout) = "mostraTotale(1);">Mostra</td>        
     </tr>
 </table>    
 Totale Importi : {{importo}}

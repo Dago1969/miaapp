@@ -6,7 +6,7 @@
             <td>
                 <input #op1 class="form-control">
                 <input #op2 class="form-control">
-                <input #ris class="form-control">
+                <input #ris class="form-control" readonly>
                 <button (click) = "ris.value = somma(op1.value, op2.value)"> + </button>
                 <button (click) = "ris.value = sottrai(op1.value, op2.value)"> - </button>
                 <button (click) = "ris.value = moltiplica(op1.value, op2.value)"> * </button>

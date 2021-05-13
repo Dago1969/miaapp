@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Auto } from '../Model/auto';
 import { RepositoryAuto } from '../Model/repository-auto';
 import { RepositoryStile } from '../Model/repository-stile';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './parco-auto.component.html',
-  styleUrls: ['./parco-auto.component.css']
+  selector: 'app-affiancamento-child-table',
+  templateUrl: './affiancamento-child-table.component.html',
+  styleUrls: ['./affiancamento-child-table.component.css']
 })
-export class ParcoAutoComponent implements OnInit {
+export class AffiancamentoChildTableComponent implements OnInit {
+  @Input("repositoryAuto") 
+  repositoryAuto:RepositoryAuto
   nuovaAuto:Auto= new Auto(0,"","","",0,0);
   title = 'Io sono io e voi .... ';
   arrAuto:Auto[]=[]
@@ -26,13 +28,12 @@ export class ParcoAutoComponent implements OnInit {
   voceTratt:number[]=[]
   vediTable:boolean=true
   totaleImporti:number=0
-  formSubmitted:boolean=false
   constructor(
-    public repositoryStile:RepositoryStile,
-    public repositoryAuto:RepositoryAuto
+    public repositoryStile:RepositoryStile
+    //public repositoryAuto:RepositoryAuto
     ){
-      this.val= repositoryAuto.getLista().length+''
-      this.arrAuto= repositoryAuto.getLista()
+      this.val= this.repositoryAuto.getLista().length+''
+      this.arrAuto= this.repositoryAuto.getLista()
       this.arrAuto.sort((a1, a2) => (a1.marca < a2.marca ? -1 : 1))
   }
 
@@ -132,18 +133,6 @@ export class ParcoAutoComponent implements OnInit {
     return (this.strMarca == '' || marca.toUpperCase().includes(this.strMarca.toUpperCase()))
   }
 
-  addAuto(form:NgForm){
-    this.formSubmitted = true;
-    if(form.valid){
-      this.formSubmitted = false;
-      this.repositoryAuto.addAuto(this.nuovaAuto);
-      this.val= this.repositoryAuto.getLista().length+''
-      this.nuovaAuto = new Auto(0,"","","",0,0);
-      form.reset
-    }
-    
-  }
-
   scegliMostraPrezzo(id:number){
     this.idMouseNascondi = id
   }
@@ -177,31 +166,6 @@ export class ParcoAutoComponent implements OnInit {
     this.arrAuto.forEach(auto => {somma = somma+auto.prezzo});
     return somma
   }
-
-  getMessaggi(state: any):string[]{
-    let messaggi:string[] = []
-    if(state.errors)
-      for(let errorName in state.errors){
-        switch (errorName) {
-          case "required":
-            messaggi.push("Dato obbligatorio")           
-            break;
-          case "minlength":
-            messaggi.push(`Lunghezza minima obbligatoria: ${state.errors?.minlength.requiredLength}`)           
-            break;
-            case "pattern":
-              messaggi.push(`Ci sono caratteri non ammessi: ${state.errors?.pattern}`)           
-              break;
-          default:
-            break;
-        }
-      }
-      
-    return messaggi;
-  }
-
-
- 
 
   ordinaColonna(colonna:string){
     switch (colonna) {

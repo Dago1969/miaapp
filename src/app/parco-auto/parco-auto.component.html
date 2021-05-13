@@ -3,58 +3,7 @@
 </div>
 <button (click) ="impostaVediTable()">Vedi Tabella S/N</button>
 <hr>
-<table [ngClass]="getClasseStile('tabella')" *ngIf="vediTable">
-    <tr [ngClass]="getClasseStile('testataTabella')">
-        <td>Progressivo Riga</td>
-        <td>Progressivo Riga</td>
-        <td><button (click) ="ordinaColonna('id')" [ngClass]="getClasseStile('testataTabella')">ID</button></td>
-        <td><button (click) ="ordinaColonna('targa')" [ngClass]="getClasseStile('testataTabella')">Targa</button></td>
-        <td><button (click) ="ordinaColonna('modello')" [ngClass]="getClasseStile('testataTabella')">Modello</button></td>
-        <td><button (click) ="ordinaColonna('marca')" [ngClass]="getClasseStile('testataTabella')">Marca</button></td>
-        <td><button (click) ="ordinaColonna('cilindrata')" [ngClass]="getClasseStile('testataTabella')">Cilindrata</button></td>
-        <td><button (click) ="ordinaColonna('prezzo')" [ngClass]="getClasseStile('testataTabella')">Prezzo</button></td>
-    </tr>
-    <!--tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [ngClass]="getClasseStileAlternato2('rigaTabella', disp)"-->
-    <!-- tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="disp" [class.bg-info]="!disp" -->
-    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" (mouseover) = "assegna(item.id);getTot3(item.marca)" [class.bg-primary]="coincideMarcaParziale(item.marca)" [class.bg-warning]="coincide(item.id)"  [class.bg-success] = "includeMarcaParziale(item.marca)"
-    [hidden]="!includeMarcaParziale(item.marca)">
-        <td >{{disp}}</td>
-        <td>{{i+1}}</td>
-        <!--td (mouseover)="str=getTot2(item.id)+''" >{{item.id}}</td-->
-        <!--td (mouseover)="getTot3(item.marca)" >{{item.id}}</td-->
-        <td >{{item.id}}</td>
-        <td>{{item.targa}}</td>
-        <td>{{item.modello}}</td>
-        <td>{{item.marca}}</td>
-        <td>{{item.cilindrata}}</td>
-        <td *ngIf="dammiPrezzo(item.id) =='X' " (mouseover) = "scegliMostraPrezzo(item.id);" (mouseout) = "scegliMostraPrezzo(0);" >Da trattare</td>
-        <td *ngIf="dammiPrezzo(item.id) !='X' "(mouseover) = "scegliMostraPrezzo(item.id);" (mouseout) = "scegliMostraPrezzo(0);" >{{dammiPrezzo(item.id) | currency:"EUR"}}</td>
-        <!--td *ngIf="item.prezzo < 50000" (mouseover)="impostaIdScopri(item.id)" (mouseout)="impostaIdScopri(0)">{{item.prezzo | currency:"EUR"}}</td>
-        <td *ngIf="item.prezzo >= 50000 && idScopri!=item.id" (mouseover)="impostaIdScopri(item.id)"  (mouseout)="impostaIdScopri(0)">Da trattare</td>
-        <td *ngIf="item.prezzo >= 50000 && idScopri==item.id" (mouseover)="impostaIdScopri(item.id)"  (mouseout)="impostaIdScopri(0)">{{item.prezzo | currency:"EUR"}}</td-->
-    </tr>
-    <tr [ngClass]="getClasseStile('testataTabella')">
-        <td colspan="3">Totale</td>
-        <td></td>
-        <td></td>
-        <td><input class="form-control" (keyup)="onkeyupMarca($event)" ></td>
-        <td></td>
 
-        <td *ngIf="totaleImporti != 0" (mouseover)="mostraTotale(0)" (mouseout) = "mostraTotale(1);">{{totaleImporti | currency:"EUR"}}</td>
-        <td *ngIf="totaleImporti == 0" (mouseover)="mostraTotale(0)" (mouseout) = "mostraTotale(1);">Mostra</td>        
-    </tr>
-</table>    
-Totale Importi : {{importo}}
-<br/>
-Totale auto marca {{marca}} : {{numeroAuto}}
-
-
-<br/>
-Totale records: {{val}}
-<div >
-    <input type="text" [value]="val">
-</div>
-<br/>
 
 <div class="form-control">
     <label>Marca da ricercare</label>
@@ -68,69 +17,134 @@ COPIA : {{str}}
 
 <style>
     input.ng-dirty.ng-invalid{border:2px solid #ff0000}
-    input.ng-dirty.ng-valid{border:4px #43e092}
+    input.ng-dirty.ng-valid{border:2px solid #43e092}
 </style>
 
-<form (ngSubmit)="addAuto()">
-<div class="form-group ">
-    <label>Marca</label>
-    <input class="form-control" [(ngModel)]= "nuovaAuto.marca" name="marca" 
-    #val1="ngModel"
-    required minlength="2" pattern="^[A-Za-z]+$" />
-    <ul class="text-danger" *ngIf="val1.dirty && val1.invalid">
-        <li *ngFor="let error of getMessaggi(val1)">{{error}}</li>
-        <!--
-        <li *ngIf="val1.errors?.required">
-            Dato Richiesto
-        </li>
-        <li *ngIf="val1.errors?.pattern">
-            La marca può contenere solo caratteri alfabetici
-        </li>
-        <li *ngIf="val1.errors?.minlength">
-            La marca deve essere lunga almeno 2 caratteri
-        </li>
-        -->
-    </ul>
-    <!--ul *ngIf="val1.dirty" class="text-danger">
-        <li *ngIf="val1.errors?.required!">
-            Dato richiesto
-        </li>
-        <li *ngIf="val1.errors?.pattern">
-            Dati solo alfabetici
-        </li>
-        <li *ngIf="val1.errors?.minlength!">
-            Lunghezza minima 2
-        </li>
-    </ul-->
-</div>
-<div class="form-group">
-    <label>Modello</label>
-    <input class="form-control"  #val2="ngModel"
-    [(ngModel)]= "nuovaAuto.modello" name="modello" required minlength="2" pattern="^[A-Za-z0-9]+$" />
-    <ul class="text-danger" *ngIf="val2.dirty && val2.invalid">
-        <li *ngFor="let error of getMessaggi(val2)">{{error}}</li>
-    </ul>
-</div>
-<div class="form-group">
-    <label>Cilindrata</label>
-    <input class="form-control"  #val3="ngModel" [(ngModel)]= "nuovaAuto.cilindrata" name="cilindrata" required minlength="4" pattern="^[0-9]+$" />
-    <ul class="text-danger" *ngIf="val3.dirty && val3.invalid">
-        <li *ngFor="let error of getMessaggi(val3)">{{error}}</li>
-    </ul>
-</div>
-<div class="form-group">
-    <label>Prezzo</label>
-    <input class="form-control" #val4="ngModel" [(ngModel)]= "nuovaAuto.prezzo" name="prezzo" required />
-    <ul class="text-danger" *ngIf="val4.dirty && val4.invalid">
-        <li *ngFor="let error of getMessaggi(val4)">{{error}}</li>
-    </ul>
-</div>
-<div class="form-group">
-    <label>Targa</label>
-    <input class="form-control" [(ngModel)]= "nuovaAuto.targa" name="targa"   required minlength="2" pattern="^[A-Za-z][A-Za-z][0-9][0-9][0-9][A-Za-z][A-Za-z]+$" />
-</div>
+<div class="row">
 
-<!--button class="btn btn-primary" (click)=addAuto()>Crea Auto</button-->
-<button class="btn btn-primary" type="submit()">Crea Auto</button>
+        <div class="col-4 bg-warning">
+            <form #form="ngForm" (ngSubmit)="addAuto(form)">
+                <div class="bg-danger text-white p-2 mb-2" *ngIf="form.invalid && formSubmitted">Verificare i dati della form</div>
+            <div class="form-group ">
+                <label>Marca</label>
+                <input class="form-control" [(ngModel)]= "nuovaAuto.marca" name="marca" 
+                #val1="ngModel"
+                required minlength="2" pattern="^[A-Za-z]+$" />
+                <ul class="text-danger" *ngIf="val1.dirty && val1.invalid">
+                    <li *ngFor="let error of getMessaggi(val1)">{{error}}</li>
+                    <!--
+                    <li *ngIf="val1.errors?.required">
+                        Dato Richiesto
+                    </li>
+                    <li *ngIf="val1.errors?.pattern">
+                        La marca può contenere solo caratteri alfabetici
+                    </li>
+                    <li *ngIf="val1.errors?.minlength">
+                        La marca deve essere lunga almeno 2 caratteri
+                    </li>
+                    -->
+                </ul>
+                <!--ul *ngIf="val1.dirty" class="text-danger">
+                    <li *ngIf="val1.errors?.required!">
+                        Dato richiesto
+                    </li>
+                    <li *ngIf="val1.errors?.pattern">
+                        Dati solo alfabetici
+                    </li>
+                    <li *ngIf="val1.errors?.minlength!">
+                        Lunghezza minima 2
+                    </li>
+                </ul-->
+            </div>
+            <div class="form-group">
+                <label>Modello</label>
+                <input class="form-control"  #val2="ngModel"
+                [(ngModel)]= "nuovaAuto.modello" name="modello" required minlength="2" pattern="^[A-Za-z0-9]+$" />
+                <ul class="text-danger" *ngIf="val2.dirty && val2.invalid">
+                    <li *ngFor="let error of getMessaggi(val2)">{{error}}</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label>Cilindrata</label>
+                <input class="form-control"  #val3="ngModel" [(ngModel)]= "nuovaAuto.cilindrata" name="cilindrata" required minlength="4" pattern="^[0-9]+$" />
+                <ul class="text-danger" *ngIf="val3.dirty && val3.invalid">
+                    <li *ngFor="let error of getMessaggi(val3)">{{error}}</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label>Prezzo</label>
+                <input class="form-control" #val4="ngModel" [(ngModel)]= "nuovaAuto.prezzo" name="prezzo" required />
+                <ul class="text-danger" *ngIf="val4.dirty && val4.invalid">
+                    <li *ngFor="let error of getMessaggi(val4)">{{error}}</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label>Targa</label>
+                <input class="form-control" [(ngModel)]= "nuovaAuto.targa" name="targa"   required minlength="2" pattern="^[A-Za-z][A-Za-z][0-9][0-9][0-9][A-Za-z][A-Za-z]+$" />
+            </div>
 
-</form>
+            <!--button class="btn btn-primary" (click)=addAuto()>Crea Auto</button-->
+            <button *ngIf="form.valid" class="btn btn-primary" type="submit()">Crea Auto</button>
+            <button *ngIf="form.invalid" class="btn btn-warning" type="submit()" disabled >Crea Auto</button>
+
+            </form>
+        </div>
+
+
+        
+        <div class="col-8 bg-success">
+            <table [ngClass]="getClasseStile('tabella')" *ngIf="vediTable">
+                <tr [ngClass]="getClasseStile('testataTabella')">
+                    <td>Progressivo Riga</td>
+                    <td>Progressivo Riga</td>
+                    <td><button (click) ="ordinaColonna('id')" [ngClass]="getClasseStile('testataTabella')">ID</button></td>
+                    <td><button (click) ="ordinaColonna('targa')" [ngClass]="getClasseStile('testataTabella')">Targa</button></td>
+                    <td><button (click) ="ordinaColonna('modello')" [ngClass]="getClasseStile('testataTabella')">Modello</button></td>
+                    <td><button (click) ="ordinaColonna('marca')" [ngClass]="getClasseStile('testataTabella')">Marca</button></td>
+                    <td><button (click) ="ordinaColonna('cilindrata')" [ngClass]="getClasseStile('testataTabella')">Cilindrata</button></td>
+                    <td><button (click) ="ordinaColonna('prezzo')" [ngClass]="getClasseStile('testataTabella')">Prezzo</button></td>
+                </tr>
+                <!--tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [ngClass]="getClasseStileAlternato2('rigaTabella', disp)"-->
+                <!-- tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="disp" [class.bg-info]="!disp" -->
+                <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" (mouseover) = "assegna(item.id);getTot3(item.marca)" [class.bg-primary]="coincideMarcaParziale(item.marca)" [class.bg-warning]="coincide(item.id)"  [class.bg-success] = "includeMarcaParziale(item.marca)"
+                [hidden]="!includeMarcaParziale(item.marca)">
+                    <td >{{disp}}</td>
+                    <td>{{i+1}}</td>
+                    <!--td (mouseover)="str=getTot2(item.id)+''" >{{item.id}}</td-->
+                    <!--td (mouseover)="getTot3(item.marca)" >{{item.id}}</td-->
+                    <td >{{item.id}}</td>
+                    <td>{{item.targa}}</td>
+                    <td>{{item.modello}}</td>
+                    <td>{{item.marca}}</td>
+                    <td>{{item.cilindrata}}</td>
+                    <td *ngIf="dammiPrezzo(item.id) =='X' " (mouseover) = "scegliMostraPrezzo(item.id);" (mouseout) = "scegliMostraPrezzo(0);" >Da trattare</td>
+                    <td *ngIf="dammiPrezzo(item.id) !='X' "(mouseover) = "scegliMostraPrezzo(item.id);" (mouseout) = "scegliMostraPrezzo(0);" >{{dammiPrezzo(item.id) | currency:"EUR"}}</td>
+                    <!--td *ngIf="item.prezzo < 50000" (mouseover)="impostaIdScopri(item.id)" (mouseout)="impostaIdScopri(0)">{{item.prezzo | currency:"EUR"}}</td>
+                    <td *ngIf="item.prezzo >= 50000 && idScopri!=item.id" (mouseover)="impostaIdScopri(item.id)"  (mouseout)="impostaIdScopri(0)">Da trattare</td>
+                    <td *ngIf="item.prezzo >= 50000 && idScopri==item.id" (mouseover)="impostaIdScopri(item.id)"  (mouseout)="impostaIdScopri(0)">{{item.prezzo | currency:"EUR"}}</td-->
+                </tr>
+                <tr [ngClass]="getClasseStile('testataTabella')">
+                    <td colspan="3">Totale</td>
+                    <td></td>
+                    <td></td>
+                    <td><input class="form-control" (keyup)="onkeyupMarca($event)" ></td>
+                    <td></td>
+            
+                    <td *ngIf="totaleImporti != 0" (mouseover)="mostraTotale(0)" (mouseout) = "mostraTotale(1);">{{totaleImporti | currency:"EUR"}}</td>
+                    <td *ngIf="totaleImporti == 0" (mouseover)="mostraTotale(0)" (mouseout) = "mostraTotale(1);">Mostra</td>        
+                </tr>
+            </table>    
+            Totale Importi : {{importo}}
+            <br/>
+            Totale auto marca {{marca}} : {{numeroAuto}}
+            
+            
+            <br/>
+            Totale records: {{val}}
+            <div >
+                <input type="text" [value]="val">
+            </div>
+            <br/>
+        </div>
+    
+</div>

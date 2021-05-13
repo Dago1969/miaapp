@@ -1,0 +1,54 @@
+<p>affiancamento-child-table works!</p>
+
+<table [ngClass]="getClasseStile('tabella')" *ngIf="vediTable">
+    <tr [ngClass]="getClasseStile('testataTabella')">
+        <td>Progressivo Riga</td>
+        <td>Progressivo Riga</td>
+        <td><button (click) ="ordinaColonna('id')" [ngClass]="getClasseStile('testataTabella')">ID</button></td>
+        <td><button (click) ="ordinaColonna('targa')" [ngClass]="getClasseStile('testataTabella')">Targa</button></td>
+        <td><button (click) ="ordinaColonna('modello')" [ngClass]="getClasseStile('testataTabella')">Modello</button></td>
+        <td><button (click) ="ordinaColonna('marca')" [ngClass]="getClasseStile('testataTabella')">Marca</button></td>
+        <td><button (click) ="ordinaColonna('cilindrata')" [ngClass]="getClasseStile('testataTabella')">Cilindrata</button></td>
+        <td><button (click) ="ordinaColonna('prezzo')" [ngClass]="getClasseStile('testataTabella')">Prezzo</button></td>
+    </tr>
+    <!--tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [ngClass]="getClasseStileAlternato2('rigaTabella', disp)"-->
+    <!-- tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="disp" [class.bg-info]="!disp" -->
+    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" (mouseover) = "assegna(item.id);getTot3(item.marca)" [class.bg-primary]="coincideMarcaParziale(item.marca)" [class.bg-warning]="coincide(item.id)"  [class.bg-success] = "includeMarcaParziale(item.marca)"
+    [hidden]="!includeMarcaParziale(item.marca)">
+        <td >{{disp}}</td>
+        <td>{{i+1}}</td>
+        <!--td (mouseover)="str=getTot2(item.id)+''" >{{item.id}}</td-->
+        <!--td (mouseover)="getTot3(item.marca)" >{{item.id}}</td-->
+        <td >{{item.id}}</td>
+        <td>{{item.targa}}</td>
+        <td>{{item.modello}}</td>
+        <td>{{item.marca}}</td>
+        <td>{{item.cilindrata}}</td>
+        <td *ngIf="dammiPrezzo(item.id) =='X' " (mouseover) = "scegliMostraPrezzo(item.id);" (mouseout) = "scegliMostraPrezzo(0);" >Da trattare</td>
+        <td *ngIf="dammiPrezzo(item.id) !='X' "(mouseover) = "scegliMostraPrezzo(item.id);" (mouseout) = "scegliMostraPrezzo(0);" >{{dammiPrezzo(item.id) | currency:"EUR"}}</td>
+        <!--td *ngIf="item.prezzo < 50000" (mouseover)="impostaIdScopri(item.id)" (mouseout)="impostaIdScopri(0)">{{item.prezzo | currency:"EUR"}}</td>
+        <td *ngIf="item.prezzo >= 50000 && idScopri!=item.id" (mouseover)="impostaIdScopri(item.id)"  (mouseout)="impostaIdScopri(0)">Da trattare</td>
+        <td *ngIf="item.prezzo >= 50000 && idScopri==item.id" (mouseover)="impostaIdScopri(item.id)"  (mouseout)="impostaIdScopri(0)">{{item.prezzo | currency:"EUR"}}</td-->
+    </tr>
+    <tr [ngClass]="getClasseStile('testataTabella')">
+        <td colspan="3">Totale</td>
+        <td></td>
+        <td></td>
+        <td><input class="form-control" (keyup)="onkeyupMarca($event)" ></td>
+        <td></td>
+
+        <td *ngIf="totaleImporti != 0" (mouseover)="mostraTotale(0)" (mouseout) = "mostraTotale(1);">{{totaleImporti | currency:"EUR"}}</td>
+        <td *ngIf="totaleImporti == 0" (mouseover)="mostraTotale(0)" (mouseout) = "mostraTotale(1);">Mostra</td>        
+    </tr>
+</table>    
+Totale Importi : {{importo}}
+<br/>
+Totale auto marca {{marca}} : {{numeroAuto}}
+
+
+<br/>
+Totale records: {{val}}
+<div >
+    <input type="text" [value]="val">
+</div>
+<br/>

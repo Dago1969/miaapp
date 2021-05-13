@@ -15,6 +15,9 @@ import { RepositoryStile } from './Model/repository-stile';
 import { RepositorySede } from './Model/repository-sede';
 import { CalcolatriceComponent } from './calcolatrice/calcolatrice.component';
 import { FormsModule } from '@angular/forms';
+import { AffiancamentoComponent } from './affiancamento/affiancamento.component';
+import { AffiancamentoChildFormComponent } from './affiancamento-child-form/affiancamento-child-form.component';
+import { AffiancamentoChildTableComponent } from './affiancamento-child-table/affiancamento-child-table.component';
 
 
 
@@ -26,7 +29,10 @@ import { FormsModule } from '@angular/forms';
     ParcoAutoComponent,
     HomeComponent,
     SequenzaComponent,
-    CalcolatriceComponent
+    CalcolatriceComponent,
+    AffiancamentoComponent,
+    AffiancamentoChildFormComponent,
+    AffiancamentoChildTableComponent
   ],
   imports: [
     BrowserModule,

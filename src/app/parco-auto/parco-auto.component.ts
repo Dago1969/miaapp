@@ -14,6 +14,7 @@ export class ParcoAutoComponent implements OnInit {
   arrAuto:Auto[]=[]
   val:string="pippo";
   str:string="0";
+  strMarca:string="";
   importo!:number;
   idMouse!:number;
   idMouseNascondi!:number;
@@ -93,7 +94,7 @@ export class ParcoAutoComponent implements OnInit {
 
   
   assegna(id:number){
-    this.str= id+''
+    //this.str= id+''
     this.idMouse = id
   }
 
@@ -113,12 +114,12 @@ export class ParcoAutoComponent implements OnInit {
     return marca==this.selMarca;
   }
 
-  onkeyup(event:any){
-    this.str = event.target.value
+  onkeyupMarca(event:any){
+    this.strMarca = event.target.value
   }
 
   coincideMarcaParziale(marca:string){
-    if(marca.substr(0, this.str.length) == this.str)
+    if(marca.substr(0, this.strMarca.length) == this.str)
       return true
     else
     return false
@@ -126,7 +127,7 @@ export class ParcoAutoComponent implements OnInit {
   }
 
   includeMarcaParziale(marca:string){
-    return marca.toUpperCase().includes(this.str.toUpperCase())
+    return (this.strMarca == '' || marca.toUpperCase().includes(this.strMarca.toUpperCase()))
   }
 
   addAuto(){
@@ -168,4 +169,61 @@ export class ParcoAutoComponent implements OnInit {
     this.arrAuto.forEach(auto => {somma = somma+auto.prezzo});
     return somma
   }
+
+  getMessaggi(state: any):string[]{
+    let messaggi:string[] = []
+    if(state.errors)
+      for(let errorName in state.errors){
+        switch (errorName) {
+          case "required":
+            messaggi.push("Dato obbligatorio")           
+            break;
+          case "minlength":
+            messaggi.push(`Lunghezza minima obbligatoria: ${state.errors?.minlength.requiredLength}`)           
+            break;
+            case "pattern":
+              messaggi.push(`Ci sono caratteri non ammessi: ${state.errors?.pattern}`)           
+              break;
+          default:
+            break;
+        }
+      }
+      
+    return messaggi;
+  }
+
+
+ 
+
+  ordinaColonna(colonna:string){
+    switch (colonna) {
+      case 'id':
+        this.arrAuto.sort((a1, a2) => (a1.id < a2.id ? -1 : 1))
+        break;
+      case 'targa':
+        this.arrAuto.sort((a1, a2) => (a1.targa < a2.targa ? -1 : 1))
+        break;
+      case 'modello':
+        this.arrAuto.sort((a1, a2) => (a1.modello < a2.modello ? -1 : 1))
+        break;
+      case 'marca':
+        this.arrAuto.sort((a1, a2) => (a1.marca < a2.marca ? -1 : 1))
+        break;
+      case 'cilindrata':
+        this.arrAuto.sort((a1, a2) => (a1.cilindrata < a2.cilindrata ? -1 : 1))
+        break;
+      case 'prezzo':
+        this.arrAuto.sort((a1, a2) => (a1.prezzo < a2.prezzo ? -1 : 1))
+        break;
+    
+      default:
+        this.arrAuto.sort((a1, a2) => (a1.marca < a2.marca ? -1 : 1))
+        break;
+    }
+  }
+
+ 
+
 }
+
+

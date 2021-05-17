@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Auto } from '../Model/auto';
 import { RepositoryAuto } from '../Model/repository-auto';
@@ -10,13 +10,15 @@ import { RepositoryStile } from '../Model/repository-stile';
   styleUrls: ['./affiancamento-child-form.component.css']
 })
 export class AffiancamentoChildFormComponent implements OnInit {
+  @Input("repositoryAuto") 
+  repositoryAuto:RepositoryAuto
+
   nuovaAuto:Auto= new Auto(0,"","","",0,0);
   arrAuto:Auto[]=[]
   val:string="pippo";
   formSubmitted:boolean=false
   constructor(
-    public repositoryStile:RepositoryStile,
-    public repositoryAuto:RepositoryAuto
+    public repositoryStile:RepositoryStile
     ){
   }
 

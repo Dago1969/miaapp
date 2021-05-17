@@ -13,7 +13,7 @@
     </tr>
     <!--tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [ngClass]="getClasseStileAlternato2('rigaTabella', disp)"-->
     <!-- tr *ngFor="let item of arrAuto; let i = index; let disp=odd" [class.bg-warning]="disp" [class.bg-info]="!disp" -->
-    <tr *ngFor="let item of arrAuto; let i = index; let disp=odd" (mouseover) = "assegna(item.id);getTot3(item.marca)" [class.bg-primary]="coincideMarcaParziale(item.marca)" [class.bg-warning]="coincide(item.id)"  [class.bg-success] = "includeMarcaParziale(item.marca)"
+    <tr *ngFor="let item of repositoryAuto.getLista(); let i = index; let disp=odd" (mouseover) = "assegna(item.id);getTot3(item.marca)" [class.bg-primary]="coincideMarcaParziale(item.marca)" [class.bg-warning]="coincide(item.id)"  [class.bg-success] = "includeMarcaParziale(item.marca)"
     [hidden]="!includeMarcaParziale(item.marca)">
         <td >{{disp}}</td>
         <td>{{i+1}}</td>

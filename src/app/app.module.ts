@@ -18,6 +18,9 @@ import { FormsModule } from '@angular/forms';
 import { AffiancamentoComponent } from './affiancamento/affiancamento.component';
 import { AffiancamentoChildFormComponent } from './affiancamento-child-form/affiancamento-child-form.component';
 import { AffiancamentoChildTableComponent } from './affiancamento-child-table/affiancamento-child-table.component';
+import { ParentComponent } from './parent_e_child/parent/parent.component';
+import { ChildsinComponent } from './parent_e_child/childsin/childsin.component';
+import { ChilddesComponent } from './parent_e_child/childdes/childdes.component';
 
 
 
@@ -32,7 +35,10 @@ import { AffiancamentoChildTableComponent } from './affiancamento-child-table/af
     CalcolatriceComponent,
     AffiancamentoComponent,
     AffiancamentoChildFormComponent,
-    AffiancamentoChildTableComponent
+    AffiancamentoChildTableComponent,
+    ParentComponent,
+    ChildsinComponent,
+    ChilddesComponent
   ],
   imports: [
     BrowserModule,

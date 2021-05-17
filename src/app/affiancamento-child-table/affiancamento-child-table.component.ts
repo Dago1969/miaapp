@@ -12,6 +12,7 @@ import { RepositoryStile } from '../Model/repository-stile';
 export class AffiancamentoChildTableComponent implements OnInit {
   @Input("repositoryAuto") 
   repositoryAuto:RepositoryAuto
+  
   nuovaAuto:Auto= new Auto(0,"","","",0,0);
   title = 'Io sono io e voi .... ';
   arrAuto:Auto[]=[]
@@ -32,12 +33,14 @@ export class AffiancamentoChildTableComponent implements OnInit {
     public repositoryStile:RepositoryStile
     //public repositoryAuto:RepositoryAuto
     ){
-      this.val= this.repositoryAuto.getLista().length+''
+      
+  }
+
+  ngOnInit(): void{
+    this.val= this.repositoryAuto.getLista().length+''
       this.arrAuto= this.repositoryAuto.getLista()
       this.arrAuto.sort((a1, a2) => (a1.marca < a2.marca ? -1 : 1))
   }
-
-  ngOnInit(): void{}
 
   getClasseStile(tipo:string):string{
     return this.repositoryStile.getClasseStile(tipo)

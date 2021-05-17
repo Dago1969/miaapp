@@ -1,0 +1,25 @@
+<p>parent works!</p>
+<div class="row m-5">
+    <div class="col-4 bg-warning">
+        <app-childsin 
+        [msg]="messaggioChildLeft"
+        (ev)="gestisciEvento($event)"
+        ></app-childsin>
+    </div>
+    <div  class="col-8 bg-primary">
+        <app-childdes [tentativi]="tentativi"></app-childdes>
+    </div>
+</div>
+
+<input type="text" name="numeroUtente" [(ngModel)]="numeroUtente">
+<button (click)="acquisisci()">Prova</button>
+
+<ul *ngIf="dispLista">
+    <li *ngFor="let st of arrStorico">
+        {{st.numero}} {{st.msg}}
+    </li>
+
+
+</ul>
+
+{{numeroPadre}}
